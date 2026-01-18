@@ -33,8 +33,8 @@ impl<'a> UserHeightRecordingStatusResponse<'a> {
     UserHeightRecordingStatusResponse { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args UserHeightRecordingStatusResponseArgs
   ) -> flatbuffers::WIPOffset<UserHeightRecordingStatusResponse<'bldr>> {
     let mut builder = UserHeightRecordingStatusResponseBuilder::new(_fbb);
@@ -87,11 +87,11 @@ impl<'a> Default for UserHeightRecordingStatusResponseArgs {
   }
 }
 
-pub struct UserHeightRecordingStatusResponseBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct UserHeightRecordingStatusResponseBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> UserHeightRecordingStatusResponseBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> UserHeightRecordingStatusResponseBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_hmdHeight(&mut self, hmdHeight: f32) {
     self.fbb_.push_slot::<f32>(UserHeightRecordingStatusResponse::VT_HMDHEIGHT, hmdHeight, 0.0);
@@ -101,7 +101,7 @@ impl<'a: 'b, 'b> UserHeightRecordingStatusResponseBuilder<'a, 'b> {
     self.fbb_.push_slot::<UserHeightCalibrationStatus>(UserHeightRecordingStatusResponse::VT_STATUS, status, UserHeightCalibrationStatus::NONE);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> UserHeightRecordingStatusResponseBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> UserHeightRecordingStatusResponseBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     UserHeightRecordingStatusResponseBuilder {
       fbb_: _fbb,

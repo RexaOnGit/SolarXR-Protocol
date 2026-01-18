@@ -40,8 +40,8 @@ impl<'a> FirmwareStatusMask<'a> {
     FirmwareStatusMask { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args FirmwareStatusMaskArgs
   ) -> flatbuffers::WIPOffset<FirmwareStatusMask<'bldr>> {
     let mut builder = FirmwareStatusMaskBuilder::new(_fbb);
@@ -160,11 +160,11 @@ impl<'a> Default for FirmwareStatusMaskArgs {
   }
 }
 
-pub struct FirmwareStatusMaskBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct FirmwareStatusMaskBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> FirmwareStatusMaskBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> FirmwareStatusMaskBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_error_status(&mut self, error_status: bool) {
     self.fbb_.push_slot::<bool>(FirmwareStatusMask::VT_ERROR_STATUS, error_status, false);
@@ -198,7 +198,7 @@ impl<'a: 'b, 'b> FirmwareStatusMaskBuilder<'a, 'b> {
     self.fbb_.push_slot::<bool>(FirmwareStatusMask::VT_BATTERY_RUNTIME_ESTIMATE, battery_runtime_estimate, false);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> FirmwareStatusMaskBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> FirmwareStatusMaskBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     FirmwareStatusMaskBuilder {
       fbb_: _fbb,

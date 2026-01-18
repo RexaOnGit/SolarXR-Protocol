@@ -32,8 +32,8 @@ impl<'a> TrackingChecklistNeedCalibration<'a> {
     TrackingChecklistNeedCalibration { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args TrackingChecklistNeedCalibrationArgs<'args>
   ) -> flatbuffers::WIPOffset<TrackingChecklistNeedCalibration<'bldr>> {
     let mut builder = TrackingChecklistNeedCalibrationBuilder::new(_fbb);
@@ -75,17 +75,17 @@ impl<'a> Default for TrackingChecklistNeedCalibrationArgs<'a> {
   }
 }
 
-pub struct TrackingChecklistNeedCalibrationBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct TrackingChecklistNeedCalibrationBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> TrackingChecklistNeedCalibrationBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> TrackingChecklistNeedCalibrationBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_trackers_id(&mut self, trackers_id: flatbuffers::WIPOffset<flatbuffers::Vector<'b , flatbuffers::ForwardsUOffset<super::datatypes::TrackerId<'b >>>>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(TrackingChecklistNeedCalibration::VT_TRACKERS_ID, trackers_id);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> TrackingChecklistNeedCalibrationBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> TrackingChecklistNeedCalibrationBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     TrackingChecklistNeedCalibrationBuilder {
       fbb_: _fbb,

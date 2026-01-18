@@ -33,8 +33,8 @@ impl<'a> TrackingChecklistResponse<'a> {
     TrackingChecklistResponse { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args TrackingChecklistResponseArgs<'args>
   ) -> flatbuffers::WIPOffset<TrackingChecklistResponse<'bldr>> {
     let mut builder = TrackingChecklistResponseBuilder::new(_fbb);
@@ -87,11 +87,11 @@ impl<'a> Default for TrackingChecklistResponseArgs<'a> {
   }
 }
 
-pub struct TrackingChecklistResponseBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct TrackingChecklistResponseBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> TrackingChecklistResponseBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> TrackingChecklistResponseBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_steps(&mut self, steps: flatbuffers::WIPOffset<flatbuffers::Vector<'b , flatbuffers::ForwardsUOffset<TrackingChecklistStep<'b >>>>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(TrackingChecklistResponse::VT_STEPS, steps);
@@ -101,7 +101,7 @@ impl<'a: 'b, 'b> TrackingChecklistResponseBuilder<'a, 'b> {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(TrackingChecklistResponse::VT_IGNORED_STEPS, ignored_steps);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> TrackingChecklistResponseBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> TrackingChecklistResponseBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     TrackingChecklistResponseBuilder {
       fbb_: _fbb,

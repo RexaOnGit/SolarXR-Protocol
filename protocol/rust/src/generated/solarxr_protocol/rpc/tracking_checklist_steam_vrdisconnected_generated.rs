@@ -32,8 +32,8 @@ impl<'a> TrackingChecklistSteamVRDisconnected<'a> {
     TrackingChecklistSteamVRDisconnected { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args TrackingChecklistSteamVRDisconnectedArgs<'args>
   ) -> flatbuffers::WIPOffset<TrackingChecklistSteamVRDisconnected<'bldr>> {
     let mut builder = TrackingChecklistSteamVRDisconnectedBuilder::new(_fbb);
@@ -76,17 +76,17 @@ impl<'a> Default for TrackingChecklistSteamVRDisconnectedArgs<'a> {
   }
 }
 
-pub struct TrackingChecklistSteamVRDisconnectedBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct TrackingChecklistSteamVRDisconnectedBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> TrackingChecklistSteamVRDisconnectedBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> TrackingChecklistSteamVRDisconnectedBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_bridge_settings_name(&mut self, bridge_settings_name: flatbuffers::WIPOffset<&'b  str>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(TrackingChecklistSteamVRDisconnected::VT_BRIDGE_SETTINGS_NAME, bridge_settings_name);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> TrackingChecklistSteamVRDisconnectedBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> TrackingChecklistSteamVRDisconnectedBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     TrackingChecklistSteamVRDisconnectedBuilder {
       fbb_: _fbb,

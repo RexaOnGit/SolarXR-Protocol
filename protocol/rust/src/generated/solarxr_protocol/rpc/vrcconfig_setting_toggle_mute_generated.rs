@@ -32,8 +32,8 @@ impl<'a> VRCConfigSettingToggleMute<'a> {
     VRCConfigSettingToggleMute { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args VRCConfigSettingToggleMuteArgs<'args>
   ) -> flatbuffers::WIPOffset<VRCConfigSettingToggleMute<'bldr>> {
     let mut builder = VRCConfigSettingToggleMuteBuilder::new(_fbb);
@@ -75,17 +75,17 @@ impl<'a> Default for VRCConfigSettingToggleMuteArgs<'a> {
   }
 }
 
-pub struct VRCConfigSettingToggleMuteBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct VRCConfigSettingToggleMuteBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> VRCConfigSettingToggleMuteBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> VRCConfigSettingToggleMuteBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_key(&mut self, key: flatbuffers::WIPOffset<&'b  str>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(VRCConfigSettingToggleMute::VT_KEY, key);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> VRCConfigSettingToggleMuteBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> VRCConfigSettingToggleMuteBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     VRCConfigSettingToggleMuteBuilder {
       fbb_: _fbb,

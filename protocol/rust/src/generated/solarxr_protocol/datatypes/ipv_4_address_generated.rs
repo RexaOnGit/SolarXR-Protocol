@@ -50,6 +50,10 @@ impl<'b> flatbuffers::Push for Ipv4Address {
         let src = ::core::slice::from_raw_parts(self as *const Ipv4Address as *const u8, Self::size());
         dst.copy_from_slice(src);
     }
+    #[inline]
+    fn alignment() -> flatbuffers::PushAlignment {
+        flatbuffers::PushAlignment::new(4)
+    }
 }
 
 impl<'a> flatbuffers::Verifiable for Ipv4Address {

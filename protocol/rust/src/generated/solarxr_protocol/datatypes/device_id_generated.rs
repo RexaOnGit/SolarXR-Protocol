@@ -50,6 +50,10 @@ impl<'b> flatbuffers::Push for DeviceId {
         let src = ::core::slice::from_raw_parts(self as *const DeviceId as *const u8, Self::size());
         dst.copy_from_slice(src);
     }
+    #[inline]
+    fn alignment() -> flatbuffers::PushAlignment {
+        flatbuffers::PushAlignment::new(1)
+    }
 }
 
 impl<'a> flatbuffers::Verifiable for DeviceId {

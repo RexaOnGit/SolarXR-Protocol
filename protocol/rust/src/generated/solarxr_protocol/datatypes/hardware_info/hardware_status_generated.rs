@@ -43,8 +43,8 @@ impl<'a> HardwareStatus<'a> {
     HardwareStatus { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args HardwareStatusArgs<'args>
   ) -> flatbuffers::WIPOffset<HardwareStatus<'bldr>> {
     let mut builder = HardwareStatusBuilder::new(_fbb);
@@ -199,11 +199,11 @@ impl<'a> Default for HardwareStatusArgs<'a> {
   }
 }
 
-pub struct HardwareStatusBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct HardwareStatusBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> HardwareStatusBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> HardwareStatusBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_error_status(&mut self, error_status: super::FirmwareErrorCode) {
     self.fbb_.push_slot_always::<super::FirmwareErrorCode>(HardwareStatus::VT_ERROR_STATUS, error_status);
@@ -249,7 +249,7 @@ impl<'a: 'b, 'b> HardwareStatusBuilder<'a, 'b> {
     self.fbb_.push_slot_always::<i64>(HardwareStatus::VT_BATTERY_RUNTIME_ESTIMATE, battery_runtime_estimate);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> HardwareStatusBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> HardwareStatusBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     HardwareStatusBuilder {
       fbb_: _fbb,

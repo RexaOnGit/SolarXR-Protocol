@@ -32,8 +32,8 @@ impl<'a> HIDSettings<'a> {
     HIDSettings { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args HIDSettingsArgs
   ) -> flatbuffers::WIPOffset<HIDSettings<'bldr>> {
     let mut builder = HIDSettingsBuilder::new(_fbb);
@@ -75,17 +75,17 @@ impl<'a> Default for HIDSettingsArgs {
   }
 }
 
-pub struct HIDSettingsBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct HIDSettingsBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> HIDSettingsBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> HIDSettingsBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_trackersOverHID(&mut self, trackersOverHID: bool) {
     self.fbb_.push_slot::<bool>(HIDSettings::VT_TRACKERSOVERHID, trackersOverHID, false);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> HIDSettingsBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> HIDSettingsBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     HIDSettingsBuilder {
       fbb_: _fbb,

@@ -34,8 +34,8 @@ impl<'a> FirmwarePart<'a> {
     FirmwarePart { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args FirmwarePartArgs<'args>
   ) -> flatbuffers::WIPOffset<FirmwarePart<'bldr>> {
     let mut builder = FirmwarePartBuilder::new(_fbb);
@@ -103,11 +103,11 @@ impl<'a> Default for FirmwarePartArgs<'a> {
   }
 }
 
-pub struct FirmwarePartBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct FirmwarePartBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> FirmwarePartBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> FirmwarePartBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_url(&mut self, url: flatbuffers::WIPOffset<&'b  str>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(FirmwarePart::VT_URL, url);
@@ -121,7 +121,7 @@ impl<'a: 'b, 'b> FirmwarePartBuilder<'a, 'b> {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(FirmwarePart::VT_DIGEST, digest);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> FirmwarePartBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> FirmwarePartBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     FirmwarePartBuilder {
       fbb_: _fbb,

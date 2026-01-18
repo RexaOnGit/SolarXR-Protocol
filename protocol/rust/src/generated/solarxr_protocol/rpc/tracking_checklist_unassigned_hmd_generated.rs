@@ -32,8 +32,8 @@ impl<'a> TrackingChecklistUnassignedHMD<'a> {
     TrackingChecklistUnassignedHMD { _tab: table }
   }
   #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr>,
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
     args: &'args TrackingChecklistUnassignedHMDArgs<'args>
   ) -> flatbuffers::WIPOffset<TrackingChecklistUnassignedHMD<'bldr>> {
     let mut builder = TrackingChecklistUnassignedHMDBuilder::new(_fbb);
@@ -75,17 +75,17 @@ impl<'a> Default for TrackingChecklistUnassignedHMDArgs<'a> {
   }
 }
 
-pub struct TrackingChecklistUnassignedHMDBuilder<'a: 'b, 'b> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a>,
+pub struct TrackingChecklistUnassignedHMDBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
   start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
 }
-impl<'a: 'b, 'b> TrackingChecklistUnassignedHMDBuilder<'a, 'b> {
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> TrackingChecklistUnassignedHMDBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_tracker_id(&mut self, tracker_id: flatbuffers::WIPOffset<super::datatypes::TrackerId<'b >>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<super::datatypes::TrackerId>>(TrackingChecklistUnassignedHMD::VT_TRACKER_ID, tracker_id);
   }
   #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a>) -> TrackingChecklistUnassignedHMDBuilder<'a, 'b> {
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> TrackingChecklistUnassignedHMDBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     TrackingChecklistUnassignedHMDBuilder {
       fbb_: _fbb,
